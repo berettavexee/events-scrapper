@@ -29,3 +29,8 @@ Scrap all the page listed inside a file and login with the credential inside cre
   * icalandar
 
 
+## ToDo / Issues
+
+  * Event location isn't scrapped
+  * Tickets url isn't scrapped
+  * Recurrent events and day saving time were not tested

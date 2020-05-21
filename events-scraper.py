@@ -28,8 +28,9 @@ import sys
 import argparse
 import re
 import json
-import datetime
-# from icalendar import Calendar, Event
+from datetime import datetime
+import pytz
+from icalendar import Calendar, Event, vCalAddress, vText
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.by import By
@@ -80,7 +81,8 @@ class CollectEvents():
             self.collect_event(iden)
 
         self.remove_duplicate()
-        self.save_json()
+        # self.save_json()
+        self.save_ical()
         self.browser.close()
 
     def collect_event(self, page):
@@ -89,12 +91,14 @@ class CollectEvents():
         """
         # navigate to page
         self.browser.get(page)
+        self.browser.implicitly_wait(self.delay)
 
         # Following line will timeout if there is no upcoming evenet
         # div id is different in that case (no_upcoming_events_card)
         try:
             WebDriverWait(
-                self.browser, self.delay).until(EC.presence_of_element_located((By.ID, "upcoming_events_card")))
+                self.browser, self.delay).until(
+                EC.presence_of_element_located((By.ID, "upcoming_events_card")))
         except Exception:
             print("Time out on page: {}".format(page))
             return None
@@ -113,7 +117,8 @@ class CollectEvents():
         for link in links:
             self.browser.get(link)
             WebDriverWait(
-                self.browser, self.delay).until(EC.visibility_of_element_located((By.ID, "title_subtitle")))
+                self.browser, self.delay).until(
+                EC.visibility_of_element_located((By.ID, "title_subtitle")))
             event_info = {}
             event_info["summary"] = self.browser.find_element_by_id(
                 "seo_h1_tag").text
@@ -134,9 +139,9 @@ class CollectEvents():
         """
         dates = self.browser.find_element_by_class_name(
             "_2ycp").get_attribute("content").split()
-        event_info["start"] = datetime.datetime.fromisoformat(dates[0])
+        event_info["start"] = datetime.fromisoformat(dates[0])
         if len(dates) >= 3:
-            event_info["end"] = datetime.datetime.fromisoformat(dates[2])
+            event_info["end"] = datetime.fromisoformat(dates[2])
         else:
             # If an event have no end, assume it one hour long.
             event_info["end"] = event_info["start"] + \
@@ -179,6 +184,39 @@ class CollectEvents():
                 indent=4,
                 sort_keys=True,
                 default=str)
+
+    def save_ical(self, filename='output.ical'):
+        '''
+        Save events_list as an ical calandar
+        input: self
+        output: filename.ical
+
+        most of the code of this method is copy/path from icalandar doc.
+        The rest is datetime object and timezone crap.
+
+        '''
+        cal = Calendar()
+        cal.add('prodid', '-//Crappy Calandar Cow/')
+        cal.add('version', '2.0')
+
+        for item in self.events_list:
+            event = Event()
+            event.add('summary', item["summary"])
+            event.add('dtstart', item["start"].astimezone(pytz.utc))
+            event.add('dtend', item["end"].astimezone(pytz.utc))
+            event.add('dtstamp', datetime.utcnow())
+            event.add('description', item["description"])
+            event.add('class', 'public')
+            organizer = vCalAddress('MAILTO:noreply@facebook.com')
+            organizer.params['cn'] = vText(item["organizer"])
+            event['organizer'] = organizer
+            # event['location'] = vText(item["organizer"])
+            event['uid'] = item["id"] + '@facebook.com'
+            # add the event to calandar
+            cal.add_component(event)
+
+        with open(filename, 'wb') as filehandle:
+            filehandle.write(cal.to_ical())
 
     def safe_find_element_by_id(self, elem_id):
         '''
