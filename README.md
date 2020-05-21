@@ -1,4 +1,4 @@
-# Event-screaper
+# Event-scrapper
 
 A web scraping python script to generate an ical calandar file from a list of Facebook events pages.
 The goal is to retrieve events without having to spend hours on FB. Unfortunately Facebook has won and the majority of events are announced and shared on FB, even when the bands or venues have their own website. 
