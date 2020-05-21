@@ -8,5 +8,23 @@ If you remain reasonable about the number of pages, the frequency of use, don't 
 
 For the kinkiest among you, the script supports authentication to access pages reserved for adults. If you use the authentication function and play dumb, you risk having your account slowed down, number of captcha increase or even banned. You've been warned, there's no need to come crying to me afterwards.
 
-I use this script twice a day for about 40 pages and I haven't had any problems.
+I use this script twice a day for about 40 pages and I haven't had any problems for the moment.
+
+## Use
+
+Scrap on specific event page:
+`python3 events-scarper.py -e https://www.facebook.com/somepage/events/ `
+
+Scrap all the page listed inside a file:
+`python3 events-scarper.py -f event_velo.txt `
+
+Scrap all the page listed inside a file and login with the credential inside credential.txt:
+`python3 events-scarper.py -f event_velo.txt -c`
+
+
+## Requirements
+
+  * Selenium 
+  * icalandar
+
 
