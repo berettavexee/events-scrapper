@@ -122,12 +122,15 @@ class CollectEvents():
             event_info = {}
             event_info["summary"] = self.browser.find_element_by_id(
                 "seo_h1_tag").text
+            event_info["location"] = self.browser.find_element_by_class_name(
+                "_4dpf._phw").text
             event_info = self.find_dates(event_info)
             event_info["id"] = link.split("/")[4]
-            event_info["description"] = "https://www.facebook.com/events/" + \
-                str(event_info["id"]) + "\n\n"
-            event_info["description"] += self.browser.find_element_by_class_name(
+            event_info["url"] = "https://www.facebook.com/events/" + \
+                str(event_info["id"])
+            event_info["description"] = self.browser.find_element_by_class_name(
                 "_63ew").text
+            event_info["description"] += "\n\n" + event_info["url"]
             event_info = self.find_organizer(event_info)
             self.events_list.append(event_info)
 
@@ -205,8 +208,9 @@ class CollectEvents():
             event.add('dtstart', item["start"].astimezone(pytz.utc))
             event.add('dtend', item["end"].astimezone(pytz.utc))
             event.add('dtstamp', datetime.utcnow())
-            event.add('description', item["description"])
-            event.add('class', 'public')
+            event.add('location', vText(item["location"]))
+            event.add('description', vText(item["description"]))
+            event.add('class', 'PUBLIC')
             organizer = vCalAddress('MAILTO:noreply@facebook.com')
             organizer.params['cn'] = vText(item["organizer"])
             event['organizer'] = organizer
