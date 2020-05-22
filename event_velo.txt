@@ -1,10 +1,9 @@
-# Comment line 
+# Bicycle events around Paris
 https://www.facebook.com/steelcyclecoffeeshop/events/
 https://www.facebook.com/girlsonwheelsparis/events/
 https://www.facebook.com/parischillracing/events/
 https://www.facebook.com/petitecourse/events/
 https://www.facebook.com/hellobirds/events/
-https://www.facebook.com/steelcyclecoffeeshop/events/
 https://www.facebook.com/briancougaratelier/events/
 https://www.facebook.com/sanslesmainsfestival/events/
 https://www.facebook.com/lechappeebelle92/events/
@@ -14,4 +13,12 @@ https://www.facebook.com/boss2paname2017/events/
 https://www.facebook.com/olvomess/events/
 https://www.facebook.com/BellevilleMachine/events/
 https://www.facebook.com/Paris-CMWC-2016-1501526023438599/events/
+https://www.facebook.com/Superides/events/
+https://www.facebook.com/GravelManSeries/events/
+https://www.facebook.com/lachance75000/events/
+https://www.facebook.com/lacycklette/events/
+https://www.facebook.com/pi.geon.77770/events
+https://www.facebook.com/pizzayolocc/events/
+https://www.facebook.com/CSPantin/events/
+https://www.facebook.com/lesbecanesdantoine/events/
 
