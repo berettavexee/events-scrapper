@@ -4,7 +4,7 @@ A web scraping python script to generate an ical calandar file from a list of Fa
 The goal is to retrieve events without having to spend hours on FB. Unfortunately Facebook has won and the majority of events are announced and shared on FB, even when the bands or venues have their own website. 
 
 Facebook Graph API no longer supports events, so this script uses selenium. The use of selenium and web scarpping in general is contrary to Facebook's terms of use.
-If you remain reasonable about the number of pages, the frequency of use, if you don't use selenium in headless mode, tor or other proxy, it shouldn't be a okay. 
+If you remain reasonable about the number of pages, the frequency of use, if you don't use selenium in headless mode, tor or other proxy, it should be a okay. 
 If you scarpe thousands of page every 30 minutes in headless mode from a tor gateway, at best the response time will increase until it become unusable or the IP adress will be blacklisted.
 
 For the kinkiest among you, the script supports authentication to access pages reserved for adults. Multiple factor authentification is supported (if you are not in headless mode).
