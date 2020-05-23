@@ -23,16 +23,20 @@ Scrap all the page listed inside a file:
 Scrap all the page listed inside a file and login with the credential inside credential.txt: 
 `python3 events-scraper.py -f event_velo.txt -c`
 
-```usage: events-scraper.py [-h] [-e EVENTS [EVENTS ...]] [-c] [-f FILE] [-r RELATED] [-q]
+```
+usage: events-scraper.py [-h] [-e EVENTS [EVENTS ...]] [-f FILE] [-o OUTPUT_FILE] [-c] [-hl] [-q]
 
-Non API Facebook event miner
+Non API public FB event miner
 
 optional arguments:
   -h, --help            show this help message and exit
   -e EVENTS [EVENTS ...], --events EVENTS [EVENTS ...]
                         List the pages you want to scrape for events
-  -c, --credentials     use credentials in credentials.txt
-  -f FILE, --file FILE  File with a list of FB events pages
+  -f FILE, --file FILE  file with the list of pages to scrape for events
+  -o OUTPUT_FILE, --output OUTPUT_FILE
+                        output ical file name
+  -c, --credentials     use credentials from credentials.txt
+  -hl, --headless       run FireFox in headless mode
   -q, --quiet           silence output
 ```
 
@@ -45,9 +49,8 @@ optional arguments:
 ## ToDo / Know issues
 
   * Tickets url isn't scrapped
-  * Recurrent events and day saving time were not tested
-  * Need an argument to specify the ical output filename
-  * URL inside the description of the events are removed for no reason 
-  * need a headless option
+  * Recurrent events are not supported (Pub quiz every sunday)
+  * Day saving time was not tested
+  * URL inside the description of the events are removed for no reason ( selenium getAttribut("text") don't like links)
   * need a crash or layout change alert system
   * Credential option work only with the classic layout and don't detect the new FB layout

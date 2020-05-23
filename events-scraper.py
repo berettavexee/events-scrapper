@@ -61,16 +61,23 @@ class CollectEvents():
     def __init__(
             self,
             ids=["oxfess"],
-            corpus_file="events.json",
-            delay=5):
+            corpus_file="facebook-events.ical",
+            delay=5,
+            headless = False):
         self.ids = ids
         self.dump = corpus_file
         self.delay = delay
-        # browser instance
+        self.events_list = []
+        self.headless = headless
+        # browser instance    
+        fireFoxOptions = webdriver.FirefoxOptions()
+        if self.headless:
+            fireFoxOptions.headless = True
+
         self.browser = webdriver.Firefox(executable_path=GECKODRIVER,
                                          firefox_binary=FIREFOX_BINARY,
-                                         firefox_profile=PROFILE,)
-        self.events_list = []
+                                         firefox_profile=PROFILE,
+                                         options=fireFoxOptions,)
 
     def collect(self):
         """
@@ -91,7 +98,9 @@ class CollectEvents():
         """
         # navigate to page
         self.browser.get(page)
-        self.browser.implicitly_wait(self.delay)
+        # not the best or faster way to manage paage loading time 
+        # but solve most problems. 
+        self.browser.implicitly_wait(self.delay / 2)
 
         # Following line will timeout if there is no upcoming evenet
         # div id is different in that case (no_upcoming_events_card)
@@ -188,7 +197,7 @@ class CollectEvents():
                 sort_keys=True,
                 default=str)
 
-    def save_ical(self, filename='output.ical'):
+    def save_ical(self):
         '''
         Save events_list as an ical calandar
         input: self
@@ -214,12 +223,11 @@ class CollectEvents():
             organizer = vCalAddress('MAILTO:noreply@facebook.com')
             organizer.params['cn'] = vText(item["organizer"])
             event['organizer'] = organizer
-            # event['location'] = vText(item["organizer"])
             event['uid'] = item["id"] + '@facebook.com'
             # add the event to calandar
             cal.add_component(event)
 
-        with open(filename, 'wb') as filehandle:
+        with open(self.dump, 'wb') as filehandle:
             filehandle.write(cal.to_ical())
 
     def safe_find_element_by_id(self, elem_id):
@@ -331,17 +339,23 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--events', nargs='+',
                         dest="events",
                         help="List the pages you want to scrape for events")
-    parser.add_argument('-c', '--credentials',
-                        action='store_true',
-                        help="use credentials in credentials.txt")
     parser.add_argument('-f',
                         '--file',
                         dest='file',
-                        help='File with a list of FB pages')
-    parser.add_argument('-r',
-                        '--related ',
-                        dest='related',
-                        help='list related pages')
+                        help='file with the list of pages to scrape for events')
+    parser.add_argument('-o',
+                        '--output',
+                        dest='output_file',
+                        default='facebook-events.ical',
+                        help='output ical file name')
+    parser.add_argument('-c', '--credentials',
+                        action='store_true',
+                        help="use credentials from credentials.txt")
+    parser.add_argument('-hl',
+                        '--headless',
+                        action='store_true',
+                        default=False,
+                        help='run FireFox in headless mode')
     parser.add_argument('-q',
                         '--quiet',
                         action='store_true',
@@ -351,6 +365,7 @@ if __name__ == "__main__":
     if args.quiet:
         sys.stdout = sys.stderr = open(os.devnull, 'w')
 
+    # Retrieve events urls 
     events_url = []
     if args.events:
         events_url = events_url + args.events
@@ -358,8 +373,10 @@ if __name__ == "__main__":
         events_url = events_url + parse_file(args.file)
     if len(events_url) == 0:
         sys.exit('No input provided')
+    else:
+        print("{} events pages urls retrieved".format(len(events_url)))
 
-    C = CollectEvents(ids=events_url)
+    C = CollectEvents(ids=events_url, corpus_file=args.output_file, headless=args.headless)
     if args.credentials:
         login, password = get_credentials()
         C.login(login, password)
