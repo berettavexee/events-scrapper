@@ -63,21 +63,21 @@ class CollectEvents():
             ids=["oxfess"],
             corpus_file="facebook-events.ical",
             delay=5,
-            headless = False):
+            headless=False):
         self.ids = ids
         self.dump = corpus_file
         self.delay = delay
         self.events_list = []
         self.headless = headless
-        # browser instance    
-        fireFoxOptions = webdriver.FirefoxOptions()
+        # browser instance
+        FireFoxOptions = webdriver.FirefoxOptions()
         if self.headless:
-            fireFoxOptions.headless = True
+            FireFoxOptions.headless = True
 
         self.browser = webdriver.Firefox(executable_path=GECKODRIVER,
                                          firefox_binary=FIREFOX_BINARY,
                                          firefox_profile=PROFILE,
-                                         options=fireFoxOptions,)
+                                         options=FireFoxOptions,)
 
     def collect(self):
         """
@@ -98,8 +98,8 @@ class CollectEvents():
         """
         # navigate to page
         self.browser.get(page)
-        # not the best or faster way to manage paage loading time 
-        # but solve most problems. 
+        # not the best or faster way to manage paage loading time
+        # but solve most problems.
         self.browser.implicitly_wait(self.delay / 2)
 
         # Following line will timeout if there is no upcoming evenet
@@ -107,10 +107,11 @@ class CollectEvents():
         try:
             WebDriverWait(
                 self.browser, self.delay).until(
-                EC.presence_of_element_located((By.ID, "upcoming_events_card")))
+                    EC.presence_of_element_located(
+                        (By.ID, "upcoming_events_card")))
         except Exception:
             print("Time out on page: {}".format(page))
-            return None
+            return
 
         # Once the full page is loaded, we can start scrap links inside
         # upcoming_events_card
@@ -127,7 +128,7 @@ class CollectEvents():
             self.browser.get(link)
             WebDriverWait(
                 self.browser, self.delay).until(
-                EC.visibility_of_element_located((By.ID, "title_subtitle")))
+                    EC.visibility_of_element_located((By.ID, "title_subtitle")))
             event_info = {}
             event_info["summary"] = self.browser.find_element_by_id(
                 "seo_h1_tag").text
@@ -339,25 +340,21 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--events', nargs='+',
                         dest="events",
                         help="List the pages you want to scrape for events")
-    parser.add_argument('-f',
-                        '--file',
+    parser.add_argument('-f', '--file',
                         dest='file',
                         help='file with the list of pages to scrape for events')
-    parser.add_argument('-o',
-                        '--output',
+    parser.add_argument('-o', '--output',
                         dest='output_file',
                         default='facebook-events.ical',
                         help='output ical file name')
     parser.add_argument('-c', '--credentials',
                         action='store_true',
                         help="use credentials from credentials.txt")
-    parser.add_argument('-hl',
-                        '--headless',
+    parser.add_argument('-hl', '--headless',
                         action='store_true',
                         default=False,
                         help='run FireFox in headless mode')
-    parser.add_argument('-q',
-                        '--quiet',
+    parser.add_argument('-q', '--quiet',
                         action='store_true',
                         help='silence output')
     args = parser.parse_args()
@@ -365,7 +362,7 @@ if __name__ == "__main__":
     if args.quiet:
         sys.stdout = sys.stderr = open(os.devnull, 'w')
 
-    # Retrieve events urls 
+    # Retrieve events urls
     events_url = []
     if args.events:
         events_url = events_url + args.events
@@ -376,7 +373,10 @@ if __name__ == "__main__":
     else:
         print("{} events pages urls retrieved".format(len(events_url)))
 
-    C = CollectEvents(ids=events_url, corpus_file=args.output_file, headless=args.headless)
+    C = CollectEvents(
+        ids=events_url,
+        corpus_file=args.output_file,
+        headless=args.headless)
     if args.credentials:
         login, password = get_credentials()
         C.login(login, password)

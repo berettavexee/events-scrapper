@@ -10,7 +10,9 @@ If you scarpe thousands of page every 30 minutes in headless mode from a tor gat
 For the kinkiest among you, the script supports authentication to access pages reserved for adults. Multiple factor authentification is supported (if you are not in headless mode).
 **If you use the authentication function and play dumb, you risk having your account slowed down, see the number of captcha increase or even get ban**. You've been warned, there's no need to come crying to me afterwards.
 
-I use this script twice a day for about 40 pages and I haven't had any problems for the moment.
+Facebook uses many browser identification techniques to detect that Firefox is running headless, including SVG and WebGL rendering.
+
+I use this script once a day for about 40 pages and I haven't had any problems for the moment.
 
 ## Use
 
