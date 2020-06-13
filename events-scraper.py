@@ -61,7 +61,7 @@ class CollectEvents():
     def __init__(
             self,
             ids=["oxfess"],
-            corpus_file="facebook-events.ical",
+            corpus_file="facebook-events.ics",
             delay=5,
             headless=False):
         self.ids = ids
@@ -345,7 +345,7 @@ if __name__ == "__main__":
                         help='file with the list of pages to scrape for events')
     parser.add_argument('-o', '--output',
                         dest='output_file',
-                        default='facebook-events.ical',
+                        default='facebook-events.ics',
                         help='output ical file name')
     parser.add_argument('-c', '--credentials',
                         action='store_true',
