@@ -1,0 +1,134 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Crappy Calandar Cow/
+BEGIN:VEVENT
+SUMMARY:Dallas McGee at The Tallapoosa Dogwood Festival
+DTSTART;VALUE=DATE-TIME:20201003T133000Z
+DTEND;VALUE=DATE-TIME:20201003T140000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:1221481508054687@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Dallas will be performing in the morning. Come by and check hi
+ m out!!\n\nhttps://www.facebook.com/events/1221481508054687
+LOCATION:
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGee at Williamson Brothers BBQ in Douglasville
+DTSTART;VALUE=DATE-TIME:20200724T220000Z
+DTEND;VALUE=DATE-TIME:20200725T000000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:318827879276422@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Dallas McGee returns\n\nhttps://www.facebook.com/events/318827
+ 879276422
+LOCATION:Williamson Bros BBQ Douglasville\n7040 Concourse Pkwy\, Douglasvi
+ lle 30134
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGree w/ Greg Shaddix at MadLife Stage in Woodstock
+DTSTART;VALUE=DATE-TIME:20200726T150000Z
+DTEND;VALUE=DATE-TIME:20200726T183000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:377304803256649@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Come out and join Dallas with Greg Shaddix as they will be on 
+ the patio at Madlife Stage & Studio \n\nhttps://www.facebook.com/events/37
+ 7304803256649
+LOCATION:MadLife Stage & Studios\n8722 Main St\, Woodstock (Géorgie) 3018
+ 8
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGee host Open Mic Night at Suttons in Carrollton
+DTSTART;VALUE=DATE-TIME:20201021T230000Z
+DTEND;VALUE=DATE-TIME:20201022T020000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:1454166058089300@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Come out for open mic as Dallas McGee will be hosting \n\nhttp
+ s://www.facebook.com/events/1454166058089300
+LOCATION:Sutton's American Grill\n477 Rome St\, Carrollton (Géorgie) 3011
+ 7
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGee host Open Mic Night at Suttons in Carrollton
+DTSTART;VALUE=DATE-TIME:20201217T000000Z
+DTEND;VALUE=DATE-TIME:20201217T030000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:696833997777461@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Dallas McGee will be hosting Open Mic Night\,\, come on out\n\
+ nhttps://www.facebook.com/events/696833997777461
+LOCATION:Sutton's American Grill\n477 Rome St\, Carrollton (Géorgie) 3011
+ 7
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGree w/ Greg Shaddix at MadLife Stage in Woodstock
+DTSTART;VALUE=DATE-TIME:20200719T150000Z
+DTEND;VALUE=DATE-TIME:20200719T183000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:356211148698556@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Dallas McGee returns to MadLife Stage & Studio\, with Greg Sha
+ ddix \n\nhttps://www.facebook.com/events/356211148698556
+LOCATION:MadLife Stage & Studios\n8722 Main St\, Woodstock (Géorgie) 3018
+ 8
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGee preshow before Pam Tillis at Mill Town Music Hall
+DTSTART;VALUE=DATE-TIME:20201107T231500Z
+DTEND;VALUE=DATE-TIME:20201108T000000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:519733015316738@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Dallas McGee returns to Mill Town for a pre show out front bef
+ ore the Pam Tillis concert. \n\nhttps://www.facebook.com/events/5197330153
+ 16738
+LOCATION:Mill Town Music Hall\n1031 Alabama Ave\, Bremen (Géorgie) 30110
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGee host Open Mic Night at Suttons in Carrollton
+DTSTART;VALUE=DATE-TIME:20200909T230000Z
+DTEND;VALUE=DATE-TIME:20200910T020000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:1078737519194287@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Come out and jam\, perform\, sing on stage to show Suttons's w
+ hat you got!!!\n\nhttps://www.facebook.com/events/1078737519194287
+LOCATION:Sutton's American Grill\n477 Rome St\, Carrollton (Géorgie) 3011
+ 7
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGee host Open Mic Night at Suttons in Carrollton
+DTSTART;VALUE=DATE-TIME:20201112T000000Z
+DTEND;VALUE=DATE-TIME:20201112T030000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:3074882522608850@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Open mic night with Dallas McGee\,\, come sing\, perform\, do 
+ your thing on stage\n\nhttps://www.facebook.com/events/3074882522608850
+LOCATION:Sutton's American Grill\n477 Rome St\, Carrollton (Géorgie) 3011
+ 7
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dallas McGee preshow before Shenadoah at Mill Town Music Hall
+DTSTART;VALUE=DATE-TIME:20200815T221500Z
+DTEND;VALUE=DATE-TIME:20200815T230000Z
+DTSTAMP;VALUE=DATE-TIME:20200713T101159Z
+UID:3056937534324461@facebook.com
+CLASS:PUBLIC
+DESCRIPTION:Dallas McGee will be performing the PRE SHOW before the concer
+ t outfront from 6:15 to 7. Come out early and enjoy his music\n\nhttps://w
+ ww.facebook.com/events/3056937534324461
+LOCATION:Mill Town Music Hall\n1031 Alabama Ave\, Bremen (Géorgie) 30110
+ORGANIZER;CN="Dallas McGee":MAILTO:noreply@facebook.com
+END:VEVENT
+END:VCALENDAR

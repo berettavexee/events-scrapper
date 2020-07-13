@@ -28,6 +28,7 @@ import sys
 import argparse
 import re
 import json
+from time  import sleep
 from datetime import datetime
 import pytz
 from icalendar import Calendar, Event, vCalAddress, vText
@@ -37,6 +38,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException  # TimeoutException
+
 
 BROWSER_EXE = '/usr/bin/firefox'
 GECKODRIVER = '/usr/bin/geckodriver'
@@ -94,11 +96,11 @@ class CollectEvents():
 
     def collect_event(self, page):
         """
-        Scrapping function
+        Collect individual event pages
         """
         # navigate to page
         self.browser.get(page)
-        # not the best or faster way to manage paage loading time
+        # not the best or faster way to manage page loading time
         # but solve most problems.
         self.browser.implicitly_wait(self.delay / 2)
 
@@ -113,7 +115,16 @@ class CollectEvents():
             print("Time out on page: {}".format(page))
             return
 
-        # Once the full page is loaded, we can start scrap links inside
+        # Scroll down multiple time to more than 6 events on long event page
+        # Could be improved with a break when "no_upcoming_events_card" is 
+        # visible.
+
+        for i in range(5):
+            self.browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            sleep(self.delay / 2)
+
+
+        # Once the full page is loaded, we can start to scrap links inside
         # upcoming_events_card
         links = self.browser.find_elements_by_xpath(
             "//div[@id='upcoming_events_card']/descendant::a")
@@ -125,26 +136,73 @@ class CollectEvents():
         # Phase 2 : scrap events informations
 
         for link in links:
-            self.browser.get(link)
+            self.scrap_event(link)
+
+    def scrap_event(self, link):
+        """
+        Scrap individual event page
+        input: event page link
+        output: appended self.events_list
+
+        """
+        self.browser.get(link)
+        self.browser.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+
+        try:
             WebDriverWait(
                 self.browser, self.delay).until(
-                    EC.visibility_of_element_located((By.ID, "title_subtitle")))
-            event_info = {}
-            event_info["summary"] = self.browser.find_element_by_id(
+                EC.visibility_of_element_located((By.ID, "title_subtitle")))
+        except Exception:
+            print("Time out on page: {}".format(link))
+            return
+
+        event_info = {}
+        event_info["id"] = link.split("/")[4]
+        event_info["url"] = "https://www.facebook.com/events/" + \
+            str(event_info["id"])
+
+        # Event summary
+        try:
+            event_info["summary"] = self.safe_find_element_by_id(
                 "seo_h1_tag").text
-            event_info["location"] = self.browser.find_element_by_class_name(
+        except Exception:
+            print("Could not find event summary on page: {}".format(link))
+            event_info["summary"] = ''
+
+        # Event location
+        try:
+            event_info["location"] = self.safe_find_element_by_class_name(
                 "_4dpf._phw").text
-            event_info = self.find_dates(event_info)
-            event_info["id"] = link.split("/")[4]
-            event_info["url"] = "https://www.facebook.com/events/" + \
-                str(event_info["id"])
-            event_info["description"] = self.browser.find_element_by_class_name(
+        except Exception:
+            print("Could not find event location on page: {}".format(link))
+            event_info["location"] = ''
+
+        # Event description
+        try:
+            event_info["description"] = self.safe_find_element_by_class_name(
                 "_63ew").text
             event_info["description"] += "\n\n" + event_info["url"]
-            event_info = self.find_organizer(event_info)
-            self.events_list.append(event_info)
+        except Exception:
+            print("Could not find event description on page: {}".format(link))
+            event_info["description"] = ''
 
-        return
+        # Event organizer
+        try:
+            event_info = self.find_organizer(event_info)
+        except Exception:
+            print("Could not find event organizer on page: {}".format(link))
+            print("This event cannot be recovered.")
+            return
+
+        # Event dates
+        try:
+            event_info = self.find_dates(event_info)
+        except Exception:
+            print("Could not find event dates on page: {}".format(link))
+            print("This event cannot be recovered.")
+            return
+
+        self.events_list.append(event_info)
 
     def find_dates(self, event_info):
         """
@@ -239,6 +297,17 @@ class CollectEvents():
         '''
         try:
             return self.browser.find_element_by_id(elem_id)
+        except NoSuchElementException:
+            return None
+
+    def safe_find_element_by_class_name(self, elem_class):
+        '''
+        Find element by class name
+        input: elem_class
+        return: elemts
+        '''
+        try:
+            return self.browser.find_element_by_class_name(elem_class)
         except NoSuchElementException:
             return None
 
@@ -340,9 +409,11 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--events', nargs='+',
                         dest="events",
                         help="List the pages you want to scrape for events")
-    parser.add_argument('-f', '--file',
-                        dest='file',
-                        help='file with the list of pages to scrape for events')
+    parser.add_argument(
+        '-f',
+        '--file',
+        dest='file',
+        help='file with the list of pages to scrape for events')
     parser.add_argument('-o', '--output',
                         dest='output_file',
                         default='facebook-events.ics',
