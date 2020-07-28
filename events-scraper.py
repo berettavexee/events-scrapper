@@ -222,10 +222,13 @@ class CollectEvents():
     def find_organizer(self, event_info):
         """
         Retrieve the firs organizers
-        ToDo: manage multiple organizers
+        ToDo: 
+        - manage multiple organizers
+        - rewrite to look for more stable class like "<a class="profileLink>""
+
         """
         organizer = self.browser.find_elements_by_xpath(
-            "//div[@class='_b9-']/descendant::a")
+            "//div[@class='_5gnb']/descendant::a")
         event_info["organizer"] = organizer[0].text
         return event_info
 
